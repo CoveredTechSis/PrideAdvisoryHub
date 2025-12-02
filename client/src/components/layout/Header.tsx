@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, X, ChevronDown, User, Moon, Sun } from "lucide-react";
 import { Link, useLocation } from "wouter";
+import prideAdvisoryLogo from "@assets/PrideAdvisory_Logo_1764714261145.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,13 +33,13 @@ export default function Header({ isDark = false, onToggleTheme }: HeaderProps) {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary">
-              <span className="text-lg font-bold text-primary-foreground">P</span>
-            </div>
-            <span className="text-xl font-bold tracking-tight" data-testid="text-logo">
-              Pride Advisory
-            </span>
+          <Link href="/" className="flex items-center">
+            <img 
+              src={prideAdvisoryLogo} 
+              alt="Pride Advisory" 
+              className="h-10 dark:invert"
+              data-testid="img-logo"
+            />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">
