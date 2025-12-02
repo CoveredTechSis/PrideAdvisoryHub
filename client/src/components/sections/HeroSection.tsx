@@ -35,7 +35,7 @@ export default function HeroSection() {
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">
             Build Lasting Wealth with
-            <span className="block text-blue-400">Nigeria's Trusted Advisors</span>
+            <span className="block text-amber-400">Nigeria's Trusted Advisors</span>
           </h1>
 
           <p className="text-lg sm:text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
