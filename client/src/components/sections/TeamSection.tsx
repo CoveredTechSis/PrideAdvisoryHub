@@ -62,8 +62,8 @@ export default function TeamSection() {
           {teamMembers.map((member, index) => (
             <Card key={index} className="hover-elevate text-center" data-testid={`card-team-${index}`}>
               <CardContent className="pt-8 pb-6">
-                <Avatar className="w-28 h-28 mx-auto mb-4 border-4 border-background shadow-lg">
-                  <AvatarImage src={member.image} alt={member.name} />
+                <Avatar className="w-32 h-32 mx-auto mb-4 border-4 border-background shadow-lg">
+                  <AvatarImage src={member.image} alt={member.name} className="object-cover object-top" />
                   <AvatarFallback className="text-2xl">
                     {member.name.split(" ").map(n => n[0]).join("")}
                   </AvatarFallback>
