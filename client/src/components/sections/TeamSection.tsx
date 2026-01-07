@@ -6,20 +6,21 @@ import { Linkedin } from "lucide-react";
 import maleHeadshot from "@assets/generated_images/team_member_headshot_male.png";
 import femaleHeadshot from "@assets/generated_images/team_member_headshot_female.png";
 import seniorHeadshot from "@assets/generated_images/senior_team_member_headshot.png";
+import ceoHeadshot from "@assets/Gemini_Generated_Image_i9t3w7i9t3w7i9t3_1767797764431.png";
 
 // todo: remove mock functionality - replace with real team data from CMS
 const teamMembers = [
   {
-    name: "Oluwaseun Adeyemi",
+    name: "Balogun O.A",
     title: "Chief Executive Officer",
-    image: seniorHeadshot,
+    image: ceoHeadshot,
     credentials: ["CFA", "MBA"],
     bio: "15+ years in Nigerian capital markets. Former Head of Equities at First Bank Capital.",
     linkedin: "#",
   },
   {
-    name: "Adaeze Okonkwo",
-    title: "Chief Investment Officer",
+    name: "Afolabi Isreal",
+    title: "Chief Operating Officer",
     image: femaleHeadshot,
     credentials: ["CFA", "ACCA"],
     bio: "Expert in fixed-income and portfolio construction with deep knowledge of Nigerian bond markets.",
@@ -34,8 +35,8 @@ const teamMembers = [
     linkedin: "#",
   },
   {
-    name: "Folake Balogun",
-    title: "Head of Client Relations",
+    name: "Fatima Balogun",
+    title: "Head of Client Relation",
     image: femaleHeadshot,
     credentials: ["CIPM"],
     bio: "Dedicated to delivering exceptional client experiences and portfolio transparency.",
