@@ -8,6 +8,7 @@ import femaleHeadshot from "@assets/generated_images/team_member_headshot_female
 import seniorHeadshot from "@assets/generated_images/senior_team_member_headshot.png";
 import ceoHeadshot from "@assets/Gemini_Generated_Image_i9t3w7i9t3w7i9t3_1767797764431.png";
 import cooHeadshot from "@assets/image_1767826565647.png";
+import analystHeadshot from "@assets/image_1767826890248.png";
 
 // todo: remove mock functionality - replace with real team data from CMS
 const teamMembers = [
@@ -30,7 +31,7 @@ const teamMembers = [
   {
     name: "Kazeem Fawas",
     title: "Head of Analyst",
-    image: maleHeadshot,
+    image: analystHeadshot,
     credentials: ["CFA", "FRM"],
     bio: "Award-winning equity analyst.",
     linkedin: "#",
