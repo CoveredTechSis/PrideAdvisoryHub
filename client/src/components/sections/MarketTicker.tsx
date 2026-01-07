@@ -3,13 +3,13 @@ import { TrendingUp, TrendingDown, RefreshCw } from "lucide-react";
 
 // todo: remove mock functionality - replace with real market data API
 const mockStocks = [
-  { symbol: "DANGCEM", price: 285.50, change: 2.35 },
-  { symbol: "GTCO", price: 42.80, change: -0.65 },
-  { symbol: "ZENITH", price: 38.20, change: 1.15 },
-  { symbol: "MTNN", price: 195.00, change: 3.50 },
+  { symbol: "DANGCEM", price: 660.00, change: 2.35 },
+  { symbol: "GTCO", price: 95.00, change: -0.65 },
+  { symbol: "ZENITH", price: 63.00, change: 1.15 },
+  { symbol: "MTNN", price: 520.10, change: 3.50 },
   { symbol: "BUA", price: 85.75, change: -1.20 },
   { symbol: "AIRTEL", price: 1450.00, change: 12.50 },
-  { symbol: "SEPLAT", price: 1850.00, change: -25.00 },
+  { symbol: "SEPLAT", price: 5917.20, change: -25.00 },
   { symbol: "NESTLE", price: 895.00, change: 5.75 },
 ];
 
