@@ -7,7 +7,7 @@ const services = [
     icon: BarChart3,
     title: "Equity Advisory",
     description: "Data-driven stock selection and timing strategies for the Nigerian Stock Exchange. We analyze fundamentals, technicals, and market sentiment to identify high-potential opportunities.",
-    features: ["NSE Stock Analysis", "Sector Rotation", "Portfolio Management"],
+    features: ["NSE Stock Analysis", "Sector Rotation", "Portfolio Rebalancing"],
   },
   {
     icon: FileCheck,

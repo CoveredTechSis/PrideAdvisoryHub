@@ -7,6 +7,7 @@ import maleHeadshot from "@assets/generated_images/team_member_headshot_male.png
 import femaleHeadshot from "@assets/generated_images/team_member_headshot_female.png";
 import seniorHeadshot from "@assets/generated_images/senior_team_member_headshot.png";
 import ceoHeadshot from "@assets/Gemini_Generated_Image_i9t3w7i9t3w7i9t3_1767797764431.png";
+import cooHeadshot from "@assets/image_1767826565647.png";
 
 // todo: remove mock functionality - replace with real team data from CMS
 const teamMembers = [
@@ -21,17 +22,17 @@ const teamMembers = [
   {
     name: "Afolabi Isreal",
     title: "Chief Operating Officer",
-    image: femaleHeadshot,
+    image: cooHeadshot,
     credentials: ["CFA", "ACCA"],
     bio: "Expert in fixed-income and portfolio construction with deep knowledge of Nigerian bond markets.",
     linkedin: "#",
   },
   {
-    name: "Emeka Nwosu",
-    title: "Head of Research",
+    name: "Kazeem Fawas",
+    title: "Head of Analyst",
     image: maleHeadshot,
     credentials: ["CFA", "FRM"],
-    bio: "Award-winning equity analyst. Former research lead at Chapel Hill Denham.",
+    bio: "Award-winning equity analyst.",
     linkedin: "#",
   },
   {

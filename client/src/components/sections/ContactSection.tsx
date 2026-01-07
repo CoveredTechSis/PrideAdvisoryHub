@@ -170,16 +170,16 @@ export default function ContactSection() {
                     <div>
                       <p className="font-medium">Head Office</p>
                       <p className="text-sm text-muted-foreground">
-                        Plot 15, Ozumba Mbadiwe Avenue<br />
-                        Victoria Island, Lagos, Nigeria
+                        No 5, Ayoola, Shoniregun close,<br />
+                        Lagos, Nigeria
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <Phone className="h-5 w-5 text-primary" />
                     <div>
-                      <p className="font-medium">+234 801 234 5678</p>
-                      <p className="text-sm text-muted-foreground">Mon-Fri, 9am-5pm WAT</p>
+                      <p className="font-medium">+234 904 944 1258</p>
+                      <p className="text-sm text-muted-foreground">Mon-Sat, 9am-5pm WAT</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">

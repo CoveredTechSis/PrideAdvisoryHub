@@ -7,11 +7,11 @@ const tiers = [
   {
     name: "Essential",
     description: "For individual investors starting their journey",
-    fee: "1.5%",
+    fee: "2%",
     feeNote: "of AUM annually",
     minimumAUM: "₦10M",
     features: [
-      "Monthly portfolio review",
+      "Quarterly portfolio review",
       "Quarterly strategy calls",
       "Market research reports",
       "Basic performance reporting",
@@ -22,12 +22,12 @@ const tiers = [
   {
     name: "Professional",
     description: "For serious investors seeking comprehensive service",
-    fee: "1.0%",
+    fee: "1.5%",
     feeNote: "of AUM annually",
     minimumAUM: "₦50M",
     features: [
-      "Weekly portfolio monitoring",
-      "Monthly strategy calls",
+      "Monthly portfolio monitoring",
+      "Weekly strategy calls",
       "Premium research access",
       "Real-time performance dashboard",
       "Priority phone support",
@@ -61,7 +61,7 @@ const engagementSteps = [
   { step: 2, title: "Risk Assessment", description: "Comprehensive profiling and KYC" },
   { step: 3, title: "Strategy Proposal", description: "Customized investment plan presentation" },
   { step: 4, title: "Onboarding", description: "Account setup and documentation" },
-  { step: 5, title: "Active Management", description: "Ongoing portfolio management begins" },
+  { step: 5, title: "Advisory Services", description: "Ongoing advisory services begins" },
 ];
 
 export default function FeesSection() {
