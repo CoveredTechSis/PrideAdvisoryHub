@@ -147,15 +147,28 @@ export default function BlogSection() {
           </div>
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
-              <Button
-                key={category}
-                variant={selectedCategory === category ? "default" : "outline"}
-                size="sm"
-                onClick={() => setSelectedCategory(category)}
-                data-testid={`button-category-${category.toLowerCase().replace(" ", "-")}`}
-              >
-                {category}
-              </Button>
+              category === "Market Analysis" ? (
+                <Link key={category} href="/market-analysis">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="hover:bg-amber-400 hover:text-slate-900 transition-colors"
+                    data-testid={`button-category-${category.toLowerCase().replace(" ", "-")}`}
+                  >
+                    {category}
+                  </Button>
+                </Link>
+              ) : (
+                <Button
+                  key={category}
+                  variant={selectedCategory === category ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedCategory(category)}
+                  data-testid={`button-category-${category.toLowerCase().replace(" ", "-")}`}
+                >
+                  {category}
+                </Button>
+              )
             ))}
           </div>
         </div>
