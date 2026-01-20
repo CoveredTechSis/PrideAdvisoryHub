@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Award, CheckCircle, ArrowRight, ChevronDown } from "lucide-react";
+import { Award, CheckCircle, ArrowRight, ChevronDown } from "lucide-react";
 import { Link } from "wouter";
 import heroImage from "@assets/generated_images/lagos_financial_skyline_hero.png";
 
@@ -21,10 +21,6 @@ export default function HeroSection() {
       <div className="relative container mx-auto px-4 py-24">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex flex-wrap justify-center gap-2 mb-8">
-            <Badge variant="outline" className="bg-white/10 text-white border-white/20 backdrop-blur-sm">
-              <Shield className="h-3 w-3 mr-1" />
-              SEC Registered
-            </Badge>
             <Badge variant="outline" className="bg-white/10 text-white border-white/20 backdrop-blur-sm">
               <Award className="h-3 w-3 mr-1" />
               CAC Verified
