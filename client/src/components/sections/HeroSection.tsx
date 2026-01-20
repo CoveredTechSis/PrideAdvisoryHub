@@ -9,9 +9,6 @@ export default function HeroSection() {
     document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const scrollToPerformance = () => {
-    document.getElementById("performance")?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
@@ -48,7 +45,7 @@ export default function HeroSection() {
             verified track records, and personalized portfolio strategies tailored for Nigerian markets.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <Link href="/book-consultation">
               <Button
                 size="lg"
@@ -59,15 +56,6 @@ export default function HeroSection() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white/30 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20"
-              onClick={scrollToPerformance}
-              data-testid="button-hero-performance"
-            >
-              View Our Performance
-            </Button>
           </div>
 
           <div className="mt-16 grid grid-cols-3 gap-8 max-w-xl mx-auto">
