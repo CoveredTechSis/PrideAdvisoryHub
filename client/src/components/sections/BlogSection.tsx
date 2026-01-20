@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Clock, Download, ArrowRight, Search, FileText, Loader2 } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import { Link } from "wouter";
 import type { BlogPost, Whitepaper } from "@shared/schema";
 
 const fallbackPosts = [
@@ -192,9 +193,17 @@ export default function BlogSection() {
                         {getReadTime(post.content)} min read
                       </span>
                     </div>
-                    <Button variant="ghost" size="sm">
-                      Read More <ArrowRight className="ml-1 h-3 w-3" />
-                    </Button>
+                    {post.category === "Market Analysis" ? (
+                      <Link href="/market-analysis">
+                        <Button variant="ghost" size="sm" data-testid={`button-read-more-${post.id}`}>
+                          Read More <ArrowRight className="ml-1 h-3 w-3" />
+                        </Button>
+                      </Link>
+                    ) : (
+                      <Button variant="ghost" size="sm" data-testid={`button-read-more-${post.id}`}>
+                        Read More <ArrowRight className="ml-1 h-3 w-3" />
+                      </Button>
+                    )}
                   </div>
                 </CardContent>
               </Card>

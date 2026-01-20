@@ -11,6 +11,7 @@ import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
 import BookConsultation from "@/pages/BookConsultation";
 import ServiceDetail from "@/pages/ServiceDetail";
+import MarketAnalysis from "@/pages/MarketAnalysis";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieBanner from "@/components/layout/CookieBanner";
@@ -24,6 +25,7 @@ function Router() {
       <Route path="/signup" component={Signup} />
       <Route path="/book-consultation" component={BookConsultation} />
       <Route path="/services/:slug" component={ServiceDetail} />
+      <Route path="/market-analysis" component={MarketAnalysis} />
       <Route path="/services" component={Home} />
       <Route path="/performance" component={Home} />
       <Route path="/team" component={Home} />
