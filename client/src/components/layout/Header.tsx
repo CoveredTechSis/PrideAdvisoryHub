@@ -8,7 +8,6 @@ import prideAdvisoryLogo from "@assets/PrideAdvisory_Logo_1764714261145.png";
 const navItems = [
   { label: "Home", href: "/", sectionId: null },
   { label: "Services", href: "/", sectionId: "services" },
-  { label: "Performance", href: "/", sectionId: "performance" },
   { label: "Team", href: "/", sectionId: "team" },
   { label: "Research", href: "/", sectionId: "research" },
   { label: "Contact", href: "/", sectionId: "contact" },
