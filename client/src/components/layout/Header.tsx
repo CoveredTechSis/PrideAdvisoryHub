@@ -1,15 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, X, ChevronDown, User, Moon, Sun } from "lucide-react";
+import { Menu, User, Moon, Sun } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import prideAdvisoryLogo from "@assets/PrideAdvisory_Logo_1764714261145.png";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -70,23 +64,18 @@ export default function Header({ isDark = false, onToggleTheme }: HeaderProps) {
               {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="hidden sm:flex gap-1" data-testid="button-login">
-                  <User className="h-4 w-4" />
-                  <span>Login</span>
-                  <ChevronDown className="h-3 w-3" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-              
-               <DropdownMenuItem data-testid="link-admin-login">Admin Login</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu> 
+            <Link href="/login">
+              <Button variant="ghost" size="sm" className="hidden sm:flex gap-1" data-testid="button-login">
+                <User className="h-4 w-4" />
+                <span>Login</span>
+              </Button>
+            </Link>
 
-            <Button size="sm" className="hidden sm:flex" data-testid="button-book-consultation">
-              Sign Up
-            </Button>
+            <Link href="/signup">
+              <Button size="sm" className="hidden sm:flex" data-testid="button-signup">
+                Sign Up
+              </Button>
+            </Link>
 
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild className="lg:hidden">
@@ -107,10 +96,18 @@ export default function Header({ isDark = false, onToggleTheme }: HeaderProps) {
                       </Button>
                     </Link>
                   ))}
-                  <div className="border-t pt-4 mt-4">
-                    <Button className="w-full" data-testid="button-mobile-consultation">
-                      Book Consultation
-                    </Button>
+                  <div className="border-t pt-4 mt-4 space-y-2">
+                    <Link href="/login" onClick={() => setIsOpen(false)}>
+                      <Button variant="outline" className="w-full" data-testid="button-mobile-login">
+                        <User className="mr-2 h-4 w-4" />
+                        Login
+                      </Button>
+                    </Link>
+                    <Link href="/signup" onClick={() => setIsOpen(false)}>
+                      <Button className="w-full" data-testid="button-mobile-signup">
+                        Sign Up
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </SheetContent>

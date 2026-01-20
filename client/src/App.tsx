@@ -7,6 +7,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import ClientPortal from "@/pages/ClientPortal";
+import Login from "@/pages/Login";
+import Signup from "@/pages/Signup";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieBanner from "@/components/layout/CookieBanner";
@@ -16,6 +18,8 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/portal" component={ClientPortal} />
+      <Route path="/login" component={Login} />
+      <Route path="/signup" component={Signup} />
       <Route path="/services" component={Home} />
       <Route path="/performance" component={Home} />
       <Route path="/team" component={Home} />
