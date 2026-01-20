@@ -65,7 +65,11 @@ export async function registerRoutes(
   // Appointment booking
   app.post("/api/appointments", async (req, res) => {
     try {
-      const validatedData = insertAppointmentSchema.parse(req.body);
+      const body = {
+        ...req.body,
+        preferredDate: req.body.preferredDate ? new Date(req.body.preferredDate) : undefined,
+      };
+      const validatedData = insertAppointmentSchema.parse(body);
       const appointment = await storage.createAppointment(validatedData);
       res.status(201).json(appointment);
     } catch (error: any) {
