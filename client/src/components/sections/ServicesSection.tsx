@@ -1,29 +1,34 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BarChart3, FileCheck, Briefcase, ShieldCheck, ArrowRight } from "lucide-react";
+import { Link } from "wouter";
 
 const services = [
   {
     icon: BarChart3,
     title: "Equity Advisory",
+    slug: "equity-advisory",
     description: "Data-driven stock selection and timing strategies for the Nigerian Stock Exchange. We analyze fundamentals, technicals, and market sentiment to identify high-potential opportunities.",
     features: ["NSE Stock Analysis", "Sector Rotation", "Portfolio Rebalancing"],
   },
   {
     icon: FileCheck,
     title: "Fixed-Income Advisory",
+    slug: "fixed-income-advisory",
     description: "Optimize your bond portfolio with our expert guidance on Federal Government bonds, corporate bonds, and money market instruments.",
     features: ["FGN Bonds", "Corporate Bonds", "T-Bills Strategy", "Yield Optimization"],
   },
   {
     icon: Briefcase,
     title: "Portfolio Construction",
+    slug: "portfolio-construction",
     description: "Custom-built portfolios aligned with your risk tolerance, investment horizon, and financial goals. Diversification strategies that work in Nigerian markets.",
     features: ["Asset Allocation", "Risk Profiling", "Goal-Based Planning", "Tax Efficiency"],
   },
   {
     icon: ShieldCheck,
     title: "Risk Management",
+    slug: "risk-management",
     description: "Protect your wealth with comprehensive risk assessment and mitigation strategies. Currency hedging, inflation protection, and downside risk management.",
     features: ["Risk Assessment", "Currency Hedging", "Inflation Protection", "Stress Testing"],
   },
@@ -70,9 +75,11 @@ export default function ServicesSection() {
                     </span>
                   ))}
                 </div>
-                <Button variant="ghost" size="sm" className="group-hover:translate-x-1 transition-transform">
-                  Learn More <ArrowRight className="ml-1 h-4 w-4" />
-                </Button>
+                <Link href={`/services/${service.slug}`}>
+                  <Button variant="ghost" size="sm" className="group-hover:translate-x-1 transition-transform" data-testid={`button-learn-more-${service.slug}`}>
+                    Learn More <ArrowRight className="ml-1 h-4 w-4" />
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           ))}
