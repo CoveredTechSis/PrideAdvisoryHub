@@ -15,10 +15,12 @@ const navItems = [
 
 const scrollToSection = (sectionId: string | null) => {
   if (sectionId) {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
   } else {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -54,9 +56,8 @@ export default function Header({ isDark = false, onToggleTheme }: HeaderProps) {
               <Link 
                 key={item.label} 
                 href={item.href}
-                onClick={(e) => {
-                  if (location === "/" && item.sectionId) {
-                    e.preventDefault();
+                onClick={() => {
+                  if (item.sectionId) {
                     scrollToSection(item.sectionId);
                   }
                 }}
@@ -108,10 +109,9 @@ export default function Header({ isDark = false, onToggleTheme }: HeaderProps) {
                     <Link 
                       key={item.label} 
                       href={item.href} 
-                      onClick={(e) => {
+                      onClick={() => {
                         setIsOpen(false);
-                        if (location === "/" && item.sectionId) {
-                          e.preventDefault();
+                        if (item.sectionId) {
                           setTimeout(() => scrollToSection(item.sectionId), 300);
                         }
                       }}
