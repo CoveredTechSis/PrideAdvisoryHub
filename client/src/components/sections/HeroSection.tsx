@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Shield, Award, CheckCircle, ArrowRight, ChevronDown } from "lucide-react";
+import { Link } from "wouter";
 import heroImage from "@assets/generated_images/lagos_financial_skyline_hero.png";
 
 export default function HeroSection() {
@@ -44,14 +45,16 @@ export default function HeroSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-white text-slate-900 hover:bg-white/90"
-              data-testid="button-hero-consultation"
-            >
-              Schedule Free Consultation
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            <Link href="/book-consultation">
+              <Button
+                size="lg"
+                className="bg-white text-slate-900 hover:bg-white/90"
+                data-testid="button-hero-consultation"
+              >
+                Book Consultation
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
             <Button
               size="lg"
               variant="outline"
