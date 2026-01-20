@@ -3,54 +3,76 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Clock, Download, ArrowRight, Search, FileText } from "lucide-react";
+import { Clock, Download, ArrowRight, Search, FileText, Loader2 } from "lucide-react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import type { BlogPost, Whitepaper } from "@shared/schema";
 
-// todo: remove mock functionality - replace with real blog data from CMS
-const blogPosts = [
+const fallbackPosts = [
   {
-    id: 1,
-    title: "2024 Nigerian Market Outlook: Navigating Volatility",
+    id: "1",
+    title: "2025 Nigerian Market Outlook: Navigating Volatility",
+    slug: "2025-market-outlook",
     excerpt: "Our comprehensive analysis of expected market trends, sector opportunities, and risk factors for Nigerian investors in the coming year.",
+    content: "",
+    author: "Pride Advisory Research",
     category: "Market Analysis",
-    readTime: 8,
-    date: "Dec 15, 2024",
-    featured: true,
+    imageUrl: null,
+    isPublished: true,
+    publishedAt: new Date("2025-01-15"),
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
-    id: 2,
+    id: "2",
     title: "Understanding FGN Bond Auctions: A Guide for New Investors",
+    slug: "fgn-bond-guide",
     excerpt: "Step-by-step guide to participating in Federal Government of Nigeria bond auctions and maximizing your fixed-income returns.",
+    content: "",
+    author: "Pride Advisory Education",
     category: "Education",
-    readTime: 5,
-    date: "Dec 10, 2024",
-    featured: false,
+    imageUrl: null,
+    isPublished: true,
+    publishedAt: new Date("2025-01-10"),
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
-    id: 3,
+    id: "3",
     title: "Banking Sector Analysis: Q4 2024 Results Preview",
+    slug: "banking-q4-2024",
     excerpt: "What to expect from tier-1 Nigerian banks as they report quarterly earnings, and implications for stock prices.",
+    content: "",
+    author: "Pride Advisory Analysts",
     category: "Sector Analysis",
-    readTime: 6,
-    date: "Dec 5, 2024",
-    featured: false,
+    imageUrl: null,
+    isPublished: true,
+    publishedAt: new Date("2025-01-05"),
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
 ];
 
-// todo: remove mock functionality
-const whitepapers = [
+const fallbackWhitepapers = [
   {
-    id: 1,
+    id: "1",
     title: "Nigerian Pension Fund Investment Strategies",
     description: "Best practices for pension fund asset allocation in Nigerian markets",
-    pages: 24,
-    size: "2.4 MB",
+    author: "Pride Advisory Research",
+    fileUrl: "#",
+    downloadCount: 156,
+    isPublished: true,
+    createdAt: new Date(),
   },
   {
-    id: 2,
+    id: "2",
     title: "ESG Investing in West Africa",
     description: "Environmental, Social, and Governance considerations for African portfolios",
-    pages: 18,
-    size: "1.8 MB",
+    author: "Pride Advisory ESG Team",
+    fileUrl: "#",
+    downloadCount: 89,
+    isPublished: true,
+    createdAt: new Date(),
   },
 ];
 
@@ -60,11 +82,43 @@ export default function BlogSection() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
+  const { data: blogPosts = fallbackPosts, isLoading: postsLoading } = useQuery<BlogPost[]>({
+    queryKey: ["/api/blog"],
+  });
+
+  const { data: whitepapers = fallbackWhitepapers, isLoading: papersLoading } = useQuery<Whitepaper[]>({
+    queryKey: ["/api/whitepapers"],
+  });
+
+  const downloadMutation = useMutation({
+    mutationFn: async (id: string) => {
+      await apiRequest("POST", `/api/whitepapers/${id}/download`);
+    },
+  });
+
   const filteredPosts = blogPosts.filter((post) => {
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
+
+  const handleWhitepaperDownload = (paper: Whitepaper) => {
+    downloadMutation.mutate(paper.id);
+    if (paper.fileUrl && paper.fileUrl !== "#") {
+      window.open(paper.fileUrl, "_blank");
+    }
+  };
+
+  const formatDate = (date: Date | string | null) => {
+    if (!date) return "";
+    const d = new Date(date);
+    return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  };
+
+  const getReadTime = (content: string) => {
+    const words = content?.split(" ").length || 0;
+    return Math.max(3, Math.ceil(words / 200));
+  };
 
   return (
     <section id="research" className="py-24 bg-background">
@@ -105,71 +159,88 @@ export default function BlogSection() {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6 mb-16 max-w-6xl mx-auto">
-          {filteredPosts.map((post) => (
-            <Card
-              key={post.id}
-              className={`hover-elevate ${post.featured ? "lg:col-span-2 lg:row-span-1" : ""}`}
-              data-testid={`card-blog-${post.id}`}
-            >
-              <CardHeader className="pb-3">
-                <div className="flex items-center gap-2 mb-2">
-                  <Badge variant="secondary">{post.category}</Badge>
-                  {post.featured && <Badge>Featured</Badge>}
-                </div>
-                <h3 className={`font-semibold ${post.featured ? "text-xl" : "text-lg"}`}>
-                  {post.title}
-                </h3>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4 line-clamp-2">
-                  {post.excerpt}
-                </p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                    <span>{post.date}</span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      {post.readTime} min read
-                    </span>
+        {postsLoading ? (
+          <div className="flex justify-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        ) : (
+          <div className="grid lg:grid-cols-3 gap-6 mb-16 max-w-6xl mx-auto">
+            {filteredPosts.map((post, index) => (
+              <Card
+                key={post.id}
+                className={`hover-elevate ${index === 0 ? "lg:col-span-2 lg:row-span-1" : ""}`}
+                data-testid={`card-blog-${post.id}`}
+              >
+                <CardHeader className="pb-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Badge variant="secondary">{post.category}</Badge>
+                    {index === 0 && <Badge>Featured</Badge>}
                   </div>
-                  <Button variant="ghost" size="sm">
-                    Read More <ArrowRight className="ml-1 h-3 w-3" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                  <h3 className={`font-semibold ${index === 0 ? "text-xl" : "text-lg"}`}>
+                    {post.title}
+                  </h3>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground mb-4 line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                      <span>{formatDate(post.publishedAt)}</span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="h-3 w-3" />
+                        {getReadTime(post.content)} min read
+                      </span>
+                    </div>
+                    <Button variant="ghost" size="sm">
+                      Read More <ArrowRight className="ml-1 h-3 w-3" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
 
         <div className="max-w-4xl mx-auto">
           <h3 className="text-2xl font-bold text-center mb-8">
             Downloadable Whitepapers
           </h3>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {whitepapers.map((paper) => (
-              <Card key={paper.id} className="hover-elevate" data-testid={`card-whitepaper-${paper.id}`}>
-                <CardContent className="flex items-start gap-4 py-4">
-                  <div className="p-3 rounded-lg bg-primary/10 text-primary shrink-0">
-                    <FileText className="h-6 w-6" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="font-medium mb-1">{paper.title}</h4>
-                    <p className="text-sm text-muted-foreground mb-2">
-                      {paper.description}
-                    </p>
-                    <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                      <span>{paper.pages} pages</span>
-                      <span>{paper.size}</span>
+          {papersLoading ? (
+            <div className="flex justify-center py-8">
+              <Loader2 className="h-6 w-6 animate-spin text-primary" />
+            </div>
+          ) : (
+            <div className="grid sm:grid-cols-2 gap-4">
+              {whitepapers.map((paper) => (
+                <Card key={paper.id} className="hover-elevate" data-testid={`card-whitepaper-${paper.id}`}>
+                  <CardContent className="flex items-start gap-4 py-4">
+                    <div className="p-3 rounded-lg bg-primary/10 text-primary shrink-0">
+                      <FileText className="h-6 w-6" />
                     </div>
-                  </div>
-                  <Button variant="outline" size="icon" className="shrink-0">
-                    <Download className="h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-medium mb-1">{paper.title}</h4>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        {paper.description}
+                      </p>
+                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                        <span>By {paper.author}</span>
+                        <span>{paper.downloadCount || 0} downloads</span>
+                      </div>
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      size="icon" 
+                      className="shrink-0"
+                      onClick={() => handleWhitepaperDownload(paper)}
+                    >
+                      <Download className="h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

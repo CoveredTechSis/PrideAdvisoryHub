@@ -1,21 +1,40 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mail, Check, ArrowRight } from "lucide-react";
+import { Mail, Check, ArrowRight, Loader2 } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 
 export default function NewsletterSection() {
+  const { toast } = useToast();
   const [email, setEmail] = useState("");
-  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const subscribeMutation = useMutation({
+    mutationFn: async (email: string) => {
+      const response = await apiRequest("POST", "/api/newsletter/subscribe", { email });
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Successfully subscribed!",
+        description: "You'll receive our weekly market insights.",
+      });
+      setEmail("");
+    },
+    onError: () => {
+      toast({
+        title: "Subscription failed",
+        description: "Please try again with a valid email.",
+        variant: "destructive",
+      });
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      console.log("Newsletter subscription:", email);
-      setIsSubscribed(true);
-      setTimeout(() => {
-        setIsSubscribed(false);
-        setEmail("");
-      }, 3000);
+      subscribeMutation.mutate(email);
     }
   };
 
@@ -50,11 +69,16 @@ export default function NewsletterSection() {
             <Button
               type="submit"
               variant="secondary"
-              disabled={isSubscribed}
+              disabled={subscribeMutation.isPending || subscribeMutation.isSuccess}
               className="shrink-0"
               data-testid="button-newsletter-subscribe"
             >
-              {isSubscribed ? (
+              {subscribeMutation.isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Subscribing...
+                </>
+              ) : subscribeMutation.isSuccess ? (
                 <>
                   <Check className="mr-2 h-4 w-4" />
                   Subscribed!

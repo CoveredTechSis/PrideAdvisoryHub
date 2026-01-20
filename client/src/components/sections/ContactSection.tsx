@@ -7,18 +7,31 @@ import { Label } from "@/components/ui/label";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Phone, Mail, Clock, CalendarIcon, MessageCircle, Send } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, CalendarIcon, MessageCircle, Send, Loader2, Check } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
 import { format } from "date-fns";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 
 const timeSlots = [
   "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM",
   "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM"
 ];
 
+const serviceTypes = [
+  "General Consultation",
+  "Portfolio Review",
+  "Equity Investment",
+  "Fixed Income Advisory",
+  "Wealth Planning"
+];
+
 export default function ContactSection() {
+  const { toast } = useToast();
   const [date, setDate] = useState<Date>();
   const [time, setTime] = useState<string>();
+  const [serviceType, setServiceType] = useState<string>();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,12 +39,49 @@ export default function ContactSection() {
     message: "",
   });
 
+  const appointmentMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const response = await apiRequest("POST", "/api/appointments", data);
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Appointment Requested!",
+        description: "We'll contact you shortly to confirm your consultation.",
+      });
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      setDate(undefined);
+      setTime(undefined);
+      setServiceType(undefined);
+    },
+    onError: () => {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again or contact us directly.",
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", { ...formData, date, time });
+    if (!date || !time || !serviceType) {
+      toast({
+        title: "Please fill all required fields",
+        description: "Select a date, time, and service type.",
+        variant: "destructive",
+      });
+      return;
+    }
+    appointmentMutation.mutate({
+      ...formData,
+      preferredDate: date.toISOString(),
+      preferredTime: time,
+      serviceType,
+    });
   };
 
-  const whatsappLink = "https://wa.me/2348012345678?text=Hello%20Pride%20Advisory";
+  const whatsappLink = "https://wa.me/2349049441258?text=Hello%20Pride%20Advisory,%20I'm%20interested%20in%20your%20investment%20services.";
 
   return (
     <section id="contact" className="py-24 bg-card">
@@ -97,6 +147,22 @@ export default function ContactSection() {
                   />
                 </div>
 
+                <div className="space-y-2">
+                  <Label>Service Type</Label>
+                  <Select value={serviceType} onValueChange={setServiceType}>
+                    <SelectTrigger data-testid="select-service">
+                      <SelectValue placeholder="Select service type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {serviceTypes.map((service) => (
+                        <SelectItem key={service} value={service}>
+                          {service}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label>Preferred Date</Label>
@@ -152,9 +218,28 @@ export default function ContactSection() {
                   />
                 </div>
 
-                <Button type="submit" className="w-full" data-testid="button-submit-consultation">
-                  <Send className="mr-2 h-4 w-4" />
-                  Request Consultation
+                <Button 
+                  type="submit" 
+                  className="w-full" 
+                  disabled={appointmentMutation.isPending}
+                  data-testid="button-submit-consultation"
+                >
+                  {appointmentMutation.isPending ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Submitting...
+                    </>
+                  ) : appointmentMutation.isSuccess ? (
+                    <>
+                      <Check className="mr-2 h-4 w-4" />
+                      Request Sent!
+                    </>
+                  ) : (
+                    <>
+                      <Send className="mr-2 h-4 w-4" />
+                      Request Consultation
+                    </>
+                  )}
                 </Button>
               </form>
             </CardContent>
