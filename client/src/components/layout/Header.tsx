@@ -6,13 +6,24 @@ import { Link, useLocation } from "wouter";
 import prideAdvisoryLogo from "@assets/PrideAdvisory_Logo_1764714261145.png";
 
 const navItems = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
-  { label: "Performance", href: "/performance" },
-  { label: "Team", href: "/team" },
-  { label: "Research", href: "/research" },
-  { label: "Contact", href: "/contact" },
+  { label: "Home", href: "/", sectionId: null },
+  { label: "Services", href: "/", sectionId: "services" },
+  { label: "Performance", href: "/", sectionId: "performance" },
+  { label: "Team", href: "/", sectionId: "team" },
+  { label: "Research", href: "/", sectionId: "research" },
+  { label: "Contact", href: "/", sectionId: "contact" },
 ];
+
+const scrollToSection = (sectionId: string | null) => {
+  if (sectionId) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  } else {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+};
 
 interface HeaderProps {
   isDark?: boolean;
@@ -41,9 +52,18 @@ export default function Header({ isDark = false, onToggleTheme }: HeaderProps) {
 
           <nav className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (
-              <Link key={item.href} href={item.href}>
+              <Link 
+                key={item.label} 
+                href={item.href}
+                onClick={(e) => {
+                  if (location === "/" && item.sectionId) {
+                    e.preventDefault();
+                    scrollToSection(item.sectionId);
+                  }
+                }}
+              >
                 <Button
-                  variant={location === item.href ? "secondary" : "ghost"}
+                  variant={location === item.href && !item.sectionId ? "secondary" : "ghost"}
                   size="sm"
                   data-testid={`link-nav-${item.label.toLowerCase()}`}
                 >
@@ -86,9 +106,19 @@ export default function Header({ isDark = false, onToggleTheme }: HeaderProps) {
               <SheetContent side="right" className="w-80">
                 <div className="flex flex-col gap-4 mt-8">
                   {navItems.map((item) => (
-                    <Link key={item.href} href={item.href} onClick={() => setIsOpen(false)}>
+                    <Link 
+                      key={item.label} 
+                      href={item.href} 
+                      onClick={(e) => {
+                        setIsOpen(false);
+                        if (location === "/" && item.sectionId) {
+                          e.preventDefault();
+                          setTimeout(() => scrollToSection(item.sectionId), 300);
+                        }
+                      }}
+                    >
                       <Button
-                        variant={location === item.href ? "secondary" : "ghost"}
+                        variant={location === item.href && !item.sectionId ? "secondary" : "ghost"}
                         className="w-full justify-start"
                         data-testid={`link-mobile-${item.label.toLowerCase()}`}
                       >
