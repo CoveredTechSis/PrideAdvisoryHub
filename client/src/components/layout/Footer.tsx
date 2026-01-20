@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Shield, Award, Lock } from "lucide-react";
 import { SiLinkedin, SiX, SiFacebook, SiInstagram } from "react-icons/si";
+import prideAdvisoryLogo from "@assets/PrideAdvisory_Logo_1764714261145.png";
 
 const footerLinks = {
   services: [
@@ -46,10 +47,12 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary">
-                <span className="text-lg font-bold text-primary-foreground"></span>
-              </div>
-              <span className="text-xl font-bold">Pride Advisory</span>
+              <img 
+                src={prideAdvisoryLogo} 
+                alt="Pride Advisory" 
+                className="h-10 w-auto"
+                data-testid="img-footer-logo"
+              />
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
               Nigeria's trusted investment advisory firm. Building wealth through
