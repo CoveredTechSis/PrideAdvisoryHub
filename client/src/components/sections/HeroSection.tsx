@@ -9,6 +9,10 @@ export default function HeroSection() {
     document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToPerformance = () => {
+    document.getElementById("performance")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       <div
@@ -48,7 +52,7 @@ export default function HeroSection() {
             <Link href="/book-consultation">
               <Button
                 size="lg"
-                className="bg-white text-slate-900 hover:bg-white/90"
+                className="bg-white text-slate-900 hover:bg-amber-400 hover:text-slate-900 transition-colors"
                 data-testid="button-hero-consultation"
               >
                 Book Consultation
@@ -59,6 +63,7 @@ export default function HeroSection() {
               size="lg"
               variant="outline"
               className="border-white/30 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20"
+              onClick={scrollToPerformance}
               data-testid="button-hero-performance"
             >
               View Our Performance
