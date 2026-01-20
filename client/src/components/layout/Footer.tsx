@@ -50,7 +50,7 @@ export default function Footer() {
               <img 
                 src={prideAdvisoryLogo} 
                 alt="Pride Advisory" 
-                className="h-10 w-auto"
+                className="h-16 w-auto dark:brightness-0 dark:invert"
                 data-testid="img-footer-logo"
               />
             </Link>
