@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check, ArrowRight } from "lucide-react";
+import { Link } from "wouter";
 
 const tiers = [
   {
@@ -112,14 +113,16 @@ export default function FeesSection() {
                   ))}
                 </ul>
 
-                <Button
-                  className="w-full"
-                  variant={tier.popular ? "default" : "outline"}
-                  data-testid={`button-tier-${tier.name.toLowerCase()}`}
-                >
-                  Get Started
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                <Link href="/book-consultation">
+                  <Button
+                    className="w-full hover:bg-amber-400 hover:text-slate-900 transition-colors"
+                    variant={tier.popular ? "default" : "outline"}
+                    data-testid={`button-tier-${tier.name.toLowerCase()}`}
+                  >
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           ))}
