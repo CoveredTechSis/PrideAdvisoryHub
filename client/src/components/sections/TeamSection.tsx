@@ -84,8 +84,7 @@ export default function TeamSection() {
                   </AvatarFallback>
                 </Avatar>
                 
-                <h3 className="text-lg font-semibold mb-1">{member.name}</h3>
-                <p className="text-sm text-muted-foreground mb-3">{member.title}</p>
+                <h3 className="text-lg font-semibold mb-3">{member.name}</h3>
                 
                 <div className="flex flex-wrap justify-center gap-1 mb-4">
                   {member.credentials.map((cred, i) => (
