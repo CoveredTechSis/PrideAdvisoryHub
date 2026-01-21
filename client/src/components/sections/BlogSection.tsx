@@ -146,19 +146,36 @@ export default function BlogSection() {
             />
           </div>
           <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              category === "Market Analysis" ? (
-                <Link key={category} href="/market-analysis">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="hover:bg-amber-400 hover:text-slate-900 transition-colors"
-                    data-testid={`button-category-${category.toLowerCase().replace(" ", "-")}`}
-                  >
-                    {category}
-                  </Button>
-                </Link>
-              ) : (
+            {categories.map((category) => {
+              if (category === "Market Analysis") {
+                return (
+                  <Link key={category} href="/market-analysis">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="hover:bg-amber-400 hover:text-slate-900 transition-colors"
+                      data-testid={`button-category-${category.toLowerCase().replace(" ", "-")}`}
+                    >
+                      {category}
+                    </Button>
+                  </Link>
+                );
+              }
+              if (category === "Education") {
+                return (
+                  <Link key={category} href="/education">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="hover:bg-amber-400 hover:text-slate-900 transition-colors"
+                      data-testid={`button-category-${category.toLowerCase().replace(" ", "-")}`}
+                    >
+                      {category}
+                    </Button>
+                  </Link>
+                );
+              }
+              return (
                 <Button
                   key={category}
                   variant={selectedCategory === category ? "default" : "outline"}
@@ -168,8 +185,8 @@ export default function BlogSection() {
                 >
                   {category}
                 </Button>
-              )
-            ))}
+              );
+            })}
           </div>
         </div>
 
