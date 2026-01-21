@@ -6,6 +6,8 @@ Pride Advisory is a Nigerian investment advisory web application targeting insti
 
 The application is built as a full-stack TypeScript monorepo with React on the frontend and Express on the backend, using PostgreSQL for data persistence.
 
+
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
