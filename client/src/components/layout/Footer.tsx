@@ -47,13 +47,13 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary">
-                <span className="text-lg font-bold text-primary-foreground">P</span>
+                <span className="text-lg font-bold text-primary-foreground"></span>
               </div>
               <span className="text-xl font-bold">Pride Advisory</span>
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
               Nigeria's trusted investment advisory firm. Building wealth through
-              disciplined, research-driven strategies.
+              disciplined and research-driven strategies.
             </p>
             <div className="flex gap-2">
               {socialLinks.map((social) => (
@@ -130,7 +130,7 @@ export default function Footer() {
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <Badge variant="outline" className="gap-1.5 py-1.5">
             <Shield className="h-3.5 w-3.5 text-primary" />
-            SEC Registered: RC/2024/001234
+            
           </Badge>
           <Badge variant="outline" className="gap-1.5 py-1.5">
             <Award className="h-3.5 w-3.5 text-primary" />
@@ -147,10 +147,9 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Pride Advisory Limited. All rights reserved.
           </p>
           <p className="text-xs max-w-3xl mx-auto">
-            Investment advisory services are provided by Pride Advisory Limited, a company registered
-            with the Securities and Exchange Commission of Nigeria. Past performance is not indicative
-            of future results. Investing involves risk including possible loss of principal. Please
-            read our risk disclaimer before making any investment decisions.
+            Investment advisory services are provided by Pride Advisory Limited. Past performance is not indicative
+            of future results. Get started with our tailored strategy to stay ahead of the curve. 
+            
           </p>
         </div>
       </div>

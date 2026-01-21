@@ -79,13 +79,13 @@ export default function Header({ isDark = false, onToggleTheme }: HeaderProps) {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem data-testid="link-client-login">Client Portal</DropdownMenuItem>
-                <DropdownMenuItem data-testid="link-admin-login">Admin Login</DropdownMenuItem>
+              
+               <DropdownMenuItem data-testid="link-admin-login">Admin Login</DropdownMenuItem>
               </DropdownMenuContent>
-            </DropdownMenu>
+            </DropdownMenu> 
 
             <Button size="sm" className="hidden sm:flex" data-testid="button-book-consultation">
-              Book Consultation
+              Sign Up
             </Button>
 
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
