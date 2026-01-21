@@ -86,14 +86,6 @@ export default function TeamSection() {
                 
                 <h3 className="text-lg font-semibold mb-3">{member.name}</h3>
                 
-                <div className="flex flex-wrap justify-center gap-1 mb-4">
-                  {member.credentials.map((cred, i) => (
-                    <Badge key={i} variant="secondary" className="text-xs">
-                      {cred}
-                    </Badge>
-                  ))}
-                </div>
-                
                 <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
                   {member.bio}
                 </p>
