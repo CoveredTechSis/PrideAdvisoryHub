@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Linkedin } from "lucide-react";
+import { SiFacebook, SiInstagram, SiX } from "react-icons/si";
 import maleHeadshot from "@assets/generated_images/team_member_headshot_male.png";
 import femaleHeadshot from "@assets/generated_images/team_member_headshot_female.png";
 import seniorHeadshot from "@assets/generated_images/senior_team_member_headshot.png";
@@ -18,7 +19,10 @@ const teamMembers = [
     image: ceoHeadshot,
     credentials: ["CFA", "MBA"],
     bio: "15+ years in Nigerian capital markets. Former Head of Equities at First Bank Capital.",
-    linkedin: "#",
+    linkedin: "https://linkedin.com/in/",
+    facebook: "https://facebook.com/",
+    instagram: "https://instagram.com/",
+    twitter: "https://x.com/",
   },
   {
     name: "Afolabi Isreal",
@@ -26,7 +30,10 @@ const teamMembers = [
     image: cooHeadshot,
     credentials: ["CFA", "ACCA"],
     bio: "Expert in fixed-income and portfolio construction with deep knowledge of Nigerian bond markets.",
-    linkedin: "#",
+    linkedin: "https://linkedin.com/in/",
+    facebook: "https://facebook.com/",
+    instagram: "https://instagram.com/",
+    twitter: "https://x.com/",
   },
   {
     name: "Kazeem Fawas",
@@ -34,7 +41,10 @@ const teamMembers = [
     image: analystHeadshot,
     credentials: ["CFA", "FRM"],
     bio: "Award-winning equity analyst.",
-    linkedin: "#",
+    linkedin: "https://linkedin.com/in/",
+    facebook: "https://facebook.com/",
+    instagram: "https://instagram.com/",
+    twitter: "https://x.com/",
   },
   {
     name: "Fatima Balogun",
@@ -42,7 +52,10 @@ const teamMembers = [
     image: femaleHeadshot,
     credentials: ["CIPM"],
     bio: "Dedicated to delivering exceptional client experiences and portfolio transparency.",
-    linkedin: "#",
+    linkedin: "https://linkedin.com/in/",
+    facebook: "https://facebook.com/",
+    instagram: "https://instagram.com/",
+    twitter: "https://x.com/",
   },
 ];
 
@@ -86,16 +99,48 @@ export default function TeamSection() {
                   {member.bio}
                 </p>
                 
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  asChild
-                  data-testid={`button-linkedin-${index}`}
-                >
-                  <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="h-4 w-4" />
-                  </a>
-                </Button>
+                <div className="flex justify-center gap-1">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    asChild
+                    data-testid={`button-linkedin-${index}`}
+                  >
+                    <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="h-4 w-4" />
+                    </a>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    asChild
+                    data-testid={`button-facebook-${index}`}
+                  >
+                    <a href={member.facebook} target="_blank" rel="noopener noreferrer">
+                      <SiFacebook className="h-4 w-4" />
+                    </a>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    asChild
+                    data-testid={`button-instagram-${index}`}
+                  >
+                    <a href={member.instagram} target="_blank" rel="noopener noreferrer">
+                      <SiInstagram className="h-4 w-4" />
+                    </a>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    asChild
+                    data-testid={`button-twitter-${index}`}
+                  >
+                    <a href={member.twitter} target="_blank" rel="noopener noreferrer">
+                      <SiX className="h-4 w-4" />
+                    </a>
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           ))}
