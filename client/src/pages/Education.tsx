@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, ArrowRight, BookOpen, TrendingUp, PiggyBank, Target, Shield, BarChart3, Coins, Clock, CheckCircle, Users } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, TrendingUp, PiggyBank, Target, Shield, BarChart3, Coins, Clock, CheckCircle, Users, ExternalLink } from "lucide-react";
 
 const educationTopics = [
   {
@@ -11,6 +11,7 @@ const educationTopics = [
     description: "Learn the fundamentals of investing and how it differs from saving. Understand the power of compound interest and long-term wealth building.",
     readTime: "5 min read",
     level: "Beginner",
+    url: "https://www.investopedia.com/terms/i/investing.asp",
   },
   {
     icon: BarChart3,
@@ -18,6 +19,7 @@ const educationTopics = [
     description: "Discover what stocks are, how the stock market works, and why companies issue shares. Learn about equity ownership and shareholder rights.",
     readTime: "8 min read",
     level: "Beginner",
+    url: "https://www.investopedia.com/terms/s/stock.asp",
   },
   {
     icon: Coins,
@@ -25,6 +27,7 @@ const educationTopics = [
     description: "Explore the world of bonds, treasury bills, and other fixed-income securities. Understand yields, maturity dates, and interest payments.",
     readTime: "7 min read",
     level: "Beginner",
+    url: "https://www.investopedia.com/terms/b/bond.asp",
   },
   {
     icon: PiggyBank,
@@ -32,6 +35,7 @@ const educationTopics = [
     description: "Learn how investing can help you beat inflation, build wealth, achieve financial goals, and secure your retirement.",
     readTime: "6 min read",
     level: "Beginner",
+    url: "https://www.investopedia.com/articles/basics/11/3-s-simple-investing.asp",
   },
   {
     icon: Target,
@@ -39,6 +43,7 @@ const educationTopics = [
     description: "How to define your financial objectives, determine your investment timeline, and create a roadmap for achieving your goals.",
     readTime: "6 min read",
     level: "Beginner",
+    url: "https://www.investopedia.com/articles/personal-finance/100516/setting-financial-goals/",
   },
   {
     icon: Shield,
@@ -46,6 +51,7 @@ const educationTopics = [
     description: "Learn about different types of investment risks, how to assess your risk tolerance, and strategies for managing portfolio risk.",
     readTime: "8 min read",
     level: "Intermediate",
+    url: "https://www.investopedia.com/terms/r/risk.asp",
   },
 ];
 
@@ -147,30 +153,42 @@ export default function Education() {
             {educationTopics.map((topic, index) => {
               const TopicIcon = topic.icon;
               return (
-                <Card key={index} className="hover-elevate">
-                  <CardHeader>
-                    <div className="flex items-start gap-4">
-                      <div className="p-2 rounded-lg bg-primary/10 text-primary shrink-0">
-                        <TopicIcon className="h-5 w-5" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Badge variant="secondary" className="text-xs">{topic.level}</Badge>
-                          <span className="text-xs text-muted-foreground flex items-center gap-1">
-                            <Clock className="h-3 w-3" />
-                            {topic.readTime}
-                          </span>
+                <a 
+                  key={index} 
+                  href={topic.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block"
+                  data-testid={`link-topic-${index}`}
+                >
+                  <Card className="hover-elevate h-full cursor-pointer group">
+                    <CardHeader>
+                      <div className="flex items-start gap-4">
+                        <div className="p-2 rounded-lg bg-primary/10 text-primary shrink-0">
+                          <TopicIcon className="h-5 w-5" />
                         </div>
-                        <CardTitle className="text-lg">{topic.title}</CardTitle>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Badge variant="secondary" className="text-xs">{topic.level}</Badge>
+                            <span className="text-xs text-muted-foreground flex items-center gap-1">
+                              <Clock className="h-3 w-3" />
+                              {topic.readTime}
+                            </span>
+                          </div>
+                          <CardTitle className="text-lg flex items-center gap-2">
+                            {topic.title}
+                            <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground" />
+                          </CardTitle>
+                        </div>
                       </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-sm">
-                      {topic.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
+                    </CardHeader>
+                    <CardContent>
+                      <CardDescription className="text-sm">
+                        {topic.description}
+                      </CardDescription>
+                    </CardContent>
+                  </Card>
+                </a>
               );
             })}
           </div>
