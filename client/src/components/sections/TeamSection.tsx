@@ -103,6 +103,7 @@ export default function TeamSection() {
                   <Button
                     variant="ghost"
                     size="icon"
+                    className="hover:bg-amber-400 hover:text-slate-900 transition-colors"
                     asChild
                     data-testid={`button-linkedin-${index}`}
                   >
@@ -113,6 +114,7 @@ export default function TeamSection() {
                   <Button
                     variant="ghost"
                     size="icon"
+                    className="hover:bg-amber-400 hover:text-slate-900 transition-colors"
                     asChild
                     data-testid={`button-facebook-${index}`}
                   >
@@ -123,6 +125,7 @@ export default function TeamSection() {
                   <Button
                     variant="ghost"
                     size="icon"
+                    className="hover:bg-amber-400 hover:text-slate-900 transition-colors"
                     asChild
                     data-testid={`button-instagram-${index}`}
                   >
@@ -133,6 +136,7 @@ export default function TeamSection() {
                   <Button
                     variant="ghost"
                     size="icon"
+                    className="hover:bg-amber-400 hover:text-slate-900 transition-colors"
                     asChild
                     data-testid={`button-twitter-${index}`}
                   >
