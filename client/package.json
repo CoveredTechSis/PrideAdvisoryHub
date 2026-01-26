@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tanstack/react-query": "^5.90.20",
     "@vitejs/plugin-react": "^5.1.2",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
