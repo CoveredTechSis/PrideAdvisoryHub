@@ -1,20 +1,40 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, User, ArrowRight } from "lucide-react";
+import { Shield, LogIn, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import { useAuth } from "@/hooks/use-auth";
 import { useEffect } from "react";
 import { useLocation } from "wouter";
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase Client using environment variables
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
 export default function Login() {
   const { isAuthenticated, isLoading } = useAuth();
   const [, setLocation] = useLocation();
 
   useEffect(() => {
+    // Redirect to portal if already authenticated
     if (isAuthenticated && !isLoading) {
       setLocation("/portal");
     }
   }, [isAuthenticated, isLoading, setLocation]);
+
+  // Handler for secure Supabase Sign In
+  const handleLogin = async () => {
+    // This triggers an OAuth provider (e.g., Google)
+    // or you can switch to email/password if you prefer.
+    await supabase.auth.signInWithOAuth({
+      provider: 'google', 
+      options: { 
+        redirectTo: window.location.origin + '/portal' 
+      }
+    });
+  };
 
   if (isLoading) {
     return (
@@ -40,16 +60,15 @@ export default function Login() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+            {/* Swapped Replit link for onClick handler while keeping the exact styling */}
             <Button 
               className="w-full" 
               size="lg"
-              asChild
+              onClick={handleLogin}
               data-testid="button-login-submit"
             >
-              <a href="/api/login">
-                <User className="mr-2 h-4 w-4" />
-                Sign In with Replit
-              </a>
+              <LogIn className="mr-2 h-4 w-4" />
+              Sign In Securely
             </Button>
 
             <div className="relative my-6">

@@ -2,6 +2,30 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactSchema, insertNewsletterSchema, insertDocumentSchema, insertAppointmentSchema } from "@shared/schema";
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  process.env.VITE_SUPABASE_URL!,
+  process.env.VITE_SUPABASE_ANON_KEY!
+);
+
+// New Middleware: Checks Supabase for a valid session
+const isAuthenticated = async (req: any, res: any, next: any) => {
+  const token = req.headers.authorization?.split(' ')[1]; // Get token from "Bearer <token>"
+
+  if (!token) {
+    return res.status(401).json({ message: "No token provided" });
+  }
+
+  const { data: { user }, error } = await supabase.auth.getUser(token);
+
+  if (error || !user) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  req.user = user; // Attach Supabase user to the request
+  next();
+};
 
 // Helper middleware to handle authentication locally/on standard hosts
 // You will eventually connect this to Supabase Auth
