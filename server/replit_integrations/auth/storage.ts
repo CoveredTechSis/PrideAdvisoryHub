@@ -1,9 +1,9 @@
-import { users, type User, type UpsertUser } from "@shared/models/auth";
-import { db } from "../../db";
-import { eq } from "drizzle-orm";
+import type { User, UpsertUser } from "@shared/models/auth";
+
+// In-memory user storage (no database dependency)
+const userCache: Map<string, User> = new Map();
 
 // Interface for auth storage operations
-// (IMPORTANT) These user operations are mandatory for Replit Auth.
 export interface IAuthStorage {
   getUser(id: string): Promise<User | undefined>;
   upsertUser(user: UpsertUser): Promise<User>;
@@ -11,22 +11,20 @@ export interface IAuthStorage {
 
 class AuthStorage implements IAuthStorage {
   async getUser(id: string): Promise<User | undefined> {
-    const [user] = await db.select().from(users).where(eq(users.id, id));
-    return user;
+    return userCache.get(id);
   }
 
   async upsertUser(userData: UpsertUser): Promise<User> {
-    const [user] = await db
-      .insert(users)
-      .values(userData)
-      .onConflictDoUpdate({
-        target: users.id,
-        set: {
-          ...userData,
-          updatedAt: new Date(),
-        },
-      })
-      .returning();
+    const user: User = {
+      id: userData.id,
+      email: userData.email,
+      firstName: userData.firstName || null,
+      lastName: userData.lastName || null,
+      profileImageUrl: userData.profileImageUrl || null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    userCache.set(userData.id, user);
     return user;
   }
 }

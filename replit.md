@@ -83,19 +83,15 @@ All backend API fetches have been replaced with hardcoded data for standalone fr
 
 ## External Dependencies
 
-### Database
-- **PostgreSQL**: Available via `DATABASE_URL` environment variable (configured but not actively used for frontend)
-- **Drizzle ORM**: Schema management with `drizzle-kit` for migrations
-
 ### Authentication
-- **Replit Auth**: OpenID Connect-based authentication
-- **Required Environment Variables**: `SESSION_SECRET`, `ISSUER_URL`, `REPL_ID`
+- **Replit Auth**: OpenID Connect-based authentication (optional)
+- **Default Session Secret**: Uses hardcoded "pride-advisory-secret" if `SESSION_SECRET` not provided
 
 ### File Storage
-- **Google Cloud Storage**: Object storage integration configured (not actively used in current hardcoded data mode)
+- **Google Cloud Storage**: Object storage integration configured (optional)
 
 ### Third-Party Integrations
-- **Uppy**: File upload widget with dashboard UI (demo mode - uploads are simulated)
 - **React Icons**: Icon library including social media icons
 - **date-fns**: Date formatting and manipulation
-- **Zod**: Schema validation for API inputs
+- **Recharts**: Charts for performance dashboard
+- **Framer Motion**: Animation library
