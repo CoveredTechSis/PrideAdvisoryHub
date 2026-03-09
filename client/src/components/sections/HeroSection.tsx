@@ -42,16 +42,17 @@ export default function HeroSection() {
           </p>
 
           <div className="flex justify-center">
-            <Link href="/book-consultation">
-              <Button
-                size="lg"
-                className="bg-white text-slate-900 hover:bg-amber-400 hover:text-slate-900 transition-colors"
-                data-testid="button-hero-consultation"
-              >
+            <Button
+              size="lg"
+              className="bg-white text-slate-900 hover:bg-amber-400 hover:text-slate-900 transition-colors"
+              asChild
+              data-testid="button-hero-consultation"
+            >
+              <a href="https://wa.me/2349049441258?text=Hello%20Pride%20Advisory,%20I'm%20interested%20in%20your%20investment%20services." target="_blank" rel="noopener noreferrer">
                 Book Consultation
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
+              </a>
+            </Button>
           </div>
 
           <div className="mt-16 grid grid-cols-3 gap-8 max-w-xl mx-auto">

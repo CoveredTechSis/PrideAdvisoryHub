@@ -282,12 +282,16 @@ export default function Education() {
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
             Our team of experienced advisors is here to guide you every step of the way. Book a free consultation to discuss your goals and create a personalized investment plan.
           </p>
-          <Link href="/book-consultation">
-            <Button size="lg" className="hover:bg-amber-400 hover:text-slate-900 transition-colors">
+          <Button 
+            size="lg" 
+            className="hover:bg-amber-400 hover:text-slate-900 transition-colors"
+            asChild
+          >
+            <a href="https://wa.me/2349049441258?text=Hello%20Pride%20Advisory,%20I'm%20interested%20in%20your%20investment%20services." target="_blank" rel="noopener noreferrer">
               Book Free Consultation
               <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
+            </a>
+          </Button>
         </div>
       </section>
     </div>
