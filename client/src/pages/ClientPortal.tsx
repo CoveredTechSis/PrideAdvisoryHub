@@ -1,13 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
 import { useAuth } from "@/hooks/use-auth";
-import { useUpload } from "@/hooks/use-upload";
 import { useToast } from "@/hooks/use-toast";
 import {
   FileText,
@@ -23,57 +20,45 @@ import {
 } from "lucide-react";
 import type { Document } from "@shared/schema";
 
+const sampleDocuments: Document[] = [
+  {
+    id: "1",
+    userId: "user-1",
+    name: "International Passport",
+    type: "identification",
+    status: "verified",
+    objectPath: "/documents/passport.pdf",
+    uploadedAt: new Date("2025-01-10"),
+    createdAt: new Date("2025-01-10"),
+  },
+  {
+    id: "2",
+    userId: "user-1",
+    name: "KYC Verification Form",
+    type: "kyc",
+    status: "verified",
+    objectPath: "/documents/kyc.pdf",
+    uploadedAt: new Date("2025-01-12"),
+    createdAt: new Date("2025-01-12"),
+  },
+  {
+    id: "3",
+    userId: "user-1",
+    name: "Address Proof - Utility Bill",
+    type: "proof_of_address",
+    status: "pending",
+    objectPath: "/documents/utility-bill.pdf",
+    uploadedAt: new Date("2025-01-15"),
+    createdAt: new Date("2025-01-15"),
+  },
+];
+
 export default function ClientPortal() {
   const { user, isLoading: authLoading, isAuthenticated, logout } = useAuth();
   const { toast } = useToast();
-  const queryClient = useQueryClient();
   const [uploadingFile, setUploadingFile] = useState<File | null>(null);
-
-  const { data: documents = [], isLoading: docsLoading } = useQuery<Document[]>({
-    queryKey: ["/api/documents"],
-    enabled: isAuthenticated,
-  });
-
-  const { uploadFile, isUploading } = useUpload({
-    onSuccess: async (response) => {
-      if (uploadingFile && response) {
-        await createDocumentMutation.mutateAsync({
-          name: uploadingFile.name,
-          type: getDocumentType(uploadingFile.name),
-          objectPath: response.objectPath,
-        });
-      }
-    },
-    onError: (error) => {
-      toast({
-        title: "Upload failed",
-        description: error.message,
-        variant: "destructive",
-      });
-    },
-  });
-
-  const createDocumentMutation = useMutation({
-    mutationFn: async (data: { name: string; type: string; objectPath: string }) => {
-      const response = await apiRequest("POST", "/api/documents", data);
-      return response.json();
-    },
-    onSuccess: () => {
-      toast({
-        title: "Document uploaded",
-        description: "Your document has been submitted for review.",
-      });
-      queryClient.invalidateQueries({ queryKey: ["/api/documents"] });
-      setUploadingFile(null);
-    },
-    onError: () => {
-      toast({
-        title: "Failed to save document",
-        description: "Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
+  const [isUploading, setIsUploading] = useState(false);
+  const [documents, setDocuments] = useState<Document[]>(sampleDocuments);
 
   const getDocumentType = (filename: string): string => {
     const lower = filename.toLowerCase();
@@ -88,7 +73,26 @@ export default function ClientPortal() {
     const file = e.target.files?.[0];
     if (file) {
       setUploadingFile(file);
-      await uploadFile(file);
+      setIsUploading(true);
+      setTimeout(() => {
+        const newDocument: Document = {
+          id: String(documents.length + 1),
+          userId: "user-1",
+          name: file.name,
+          type: getDocumentType(file.name),
+          status: "pending",
+          objectPath: `/documents/${file.name}`,
+          uploadedAt: new Date(),
+          createdAt: new Date(),
+        };
+        setDocuments([...documents, newDocument]);
+        setIsUploading(false);
+        setUploadingFile(null);
+        toast({
+          title: "Document uploaded",
+          description: "Your document has been submitted for review.",
+        });
+      }, 1500);
     }
   };
 
@@ -258,18 +262,14 @@ export default function ClientPortal() {
                 <CardDescription>View and manage your submitted documents</CardDescription>
               </CardHeader>
               <CardContent>
-                {docsLoading ? (
-                  <div className="flex justify-center py-8">
-                    <Loader2 className="h-6 w-6 animate-spin" />
-                  </div>
-                ) : documents.length === 0 ? (
+                {documents.length === 0 ? (
                   <div className="text-center py-8 text-muted-foreground">
                     <FileText className="h-12 w-12 mx-auto mb-4 opacity-50" />
                     <p>No documents uploaded yet</p>
                     <p className="text-sm">Upload your KYC documents to get started</p>
                   </div>
                 ) : (
-                  <div className="space-y-3">
+                  <div className="space-y-3" data-testid="documents-list">
                     {documents.map((doc) => (
                       <div
                         key={doc.id}

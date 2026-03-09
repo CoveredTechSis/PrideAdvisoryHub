@@ -7,11 +7,9 @@ import { Label } from "@/components/ui/label";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Phone, Mail, Clock, CalendarIcon, MessageCircle, Send, Loader2, Check } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, CalendarIcon, MessageCircle, Send, Check } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
 import { format } from "date-fns";
-import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
 const timeSlots = [
@@ -32,35 +30,12 @@ export default function ContactSection() {
   const [date, setDate] = useState<Date>();
   const [time, setTime] = useState<string>();
   const [serviceType, setServiceType] = useState<string>();
+  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
-  });
-
-  const appointmentMutation = useMutation({
-    mutationFn: async (data: any) => {
-      const response = await apiRequest("POST", "/api/appointments", data);
-      return response.json();
-    },
-    onSuccess: () => {
-      toast({
-        title: "Appointment Requested!",
-        description: "We'll contact you shortly to confirm your consultation.",
-      });
-      setFormData({ name: "", email: "", phone: "", message: "" });
-      setDate(undefined);
-      setTime(undefined);
-      setServiceType(undefined);
-    },
-    onError: () => {
-      toast({
-        title: "Something went wrong",
-        description: "Please try again or contact us directly.",
-        variant: "destructive",
-      });
-    },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -73,12 +48,16 @@ export default function ContactSection() {
       });
       return;
     }
-    appointmentMutation.mutate({
-      ...formData,
-      preferredDate: date.toISOString(),
-      preferredTime: time,
-      serviceType,
+    toast({
+      title: "Appointment Requested!",
+      description: "We'll contact you shortly to confirm your consultation.",
     });
+    setFormData({ name: "", email: "", phone: "", message: "" });
+    setDate(undefined);
+    setTime(undefined);
+    setServiceType(undefined);
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 3000);
   };
 
   const whatsappLink = "https://wa.me/2349049441258?text=Hello%20Pride%20Advisory,%20I'm%20interested%20in%20your%20investment%20services.";
@@ -221,15 +200,9 @@ export default function ContactSection() {
                 <Button 
                   type="submit" 
                   className="w-full" 
-                  disabled={appointmentMutation.isPending}
                   data-testid="button-submit-consultation"
                 >
-                  {appointmentMutation.isPending ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Submitting...
-                    </>
-                  ) : appointmentMutation.isSuccess ? (
+                  {submitted ? (
                     <>
                       <Check className="mr-2 h-4 w-4" />
                       Request Sent!

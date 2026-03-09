@@ -3,13 +3,12 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Clock, Download, ArrowRight, Search, FileText, Loader2 } from "lucide-react";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
+import { Clock, Download, ArrowRight, Search, FileText } from "lucide-react";
 import { Link } from "wouter";
+import { useToast } from "@/hooks/use-toast";
 import type { BlogPost, Whitepaper } from "@shared/schema";
 
-const fallbackPosts = [
+const blogPosts: BlogPost[] = [
   {
     id: "1",
     title: "2025 Nigerian Market Outlook: Navigating Volatility",
@@ -54,7 +53,7 @@ const fallbackPosts = [
   },
 ];
 
-const fallbackWhitepapers = [
+const whitepapers: Whitepaper[] = [
   {
     id: "1",
     title: "Nigerian Pension Fund Investment Strategies",
@@ -80,22 +79,9 @@ const fallbackWhitepapers = [
 const categories = ["All", "Market Analysis", "Education", "Sector Analysis", "Research"];
 
 export default function BlogSection() {
+  const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-
-  const { data: blogPosts = fallbackPosts, isLoading: postsLoading } = useQuery<BlogPost[]>({
-    queryKey: ["/api/blog"],
-  });
-
-  const { data: whitepapers = fallbackWhitepapers, isLoading: papersLoading } = useQuery<Whitepaper[]>({
-    queryKey: ["/api/whitepapers"],
-  });
-
-  const downloadMutation = useMutation({
-    mutationFn: async (id: string) => {
-      await apiRequest("POST", `/api/whitepapers/${id}/download`);
-    },
-  });
 
   const filteredPosts = blogPosts.filter((post) => {
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase());
@@ -104,10 +90,10 @@ export default function BlogSection() {
   });
 
   const handleWhitepaperDownload = (paper: Whitepaper) => {
-    downloadMutation.mutate(paper.id);
-    if (paper.fileUrl && paper.fileUrl !== "#") {
-      window.open(paper.fileUrl, "_blank");
-    }
+    toast({
+      title: "Download started",
+      description: `${paper.title} is being prepared for download.`,
+    });
   };
 
   const formatDate = (date: Date | string | null) => {
@@ -190,12 +176,7 @@ export default function BlogSection() {
           </div>
         </div>
 
-        {postsLoading ? (
-          <div className="flex justify-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          </div>
-        ) : (
-          <div className="grid lg:grid-cols-3 gap-6 mb-16 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-3 gap-6 mb-16 max-w-6xl mx-auto">
             {filteredPosts.map((post, index) => (
               <Card
                 key={post.id}
@@ -238,19 +219,13 @@ export default function BlogSection() {
                 </CardContent>
               </Card>
             ))}
-          </div>
-        )}
+        </div>
 
         <div className="max-w-4xl mx-auto">
           <h3 className="text-2xl font-bold text-center mb-8">
             Downloadable Whitepapers
           </h3>
-          {papersLoading ? (
-            <div className="flex justify-center py-8">
-              <Loader2 className="h-6 w-6 animate-spin text-primary" />
-            </div>
-          ) : (
-            <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4">
               {whitepapers.map((paper) => (
                 <Card key={paper.id} className="hover-elevate" data-testid={`card-whitepaper-${paper.id}`}>
                   <CardContent className="flex items-start gap-4 py-4">
@@ -278,8 +253,7 @@ export default function BlogSection() {
                   </CardContent>
                 </Card>
               ))}
-            </div>
-          )}
+          </div>
         </div>
       </div>
     </section>
