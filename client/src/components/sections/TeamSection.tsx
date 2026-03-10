@@ -4,12 +4,12 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Linkedin } from "lucide-react";
 import { SiFacebook, SiInstagram, SiX } from "react-icons/si";
-import maleHeadshot from "../../../attached_assets/generated_images/team_member_headshot_male.png";
-import femaleHeadshot from "../../../attached_assets/generated_images/team_member_headshot_female.png";
-import seniorHeadshot from "../../../attached_assets/generated_images/senior_team_member_headshot.png";
-import ceoHeadshot from "../../../attached_assets/Gemini_Generated_Image_i9t3w7i9t3w7i9t3_1767797764431.png";
-import cooHeadshot from "../../../attached_assets/image_1767826565647.png";
-import analystHeadshot from "../../../attached_assets/image_1767826890248.png";
+import maleHeadshot from "@assets/team_member_headshot_male.png";
+import femaleHeadshot from "@assets/team_member_headshot_female.png";
+import seniorHeadshot from "@assets/senior_team_member_headshot.png";
+import ceoHeadshot from "@assets/Gemini_Generated_Image_i9t3w7i9t3w7i9t3_1767797764431.png";
+import cooHeadshot from "@assets/image_1767826565647.png";
+import analystHeadshot from "@assets/image_1767826890248.png";
 
 // todo: remove mock functionality - replace with real team data from CMS
 const teamMembers = [

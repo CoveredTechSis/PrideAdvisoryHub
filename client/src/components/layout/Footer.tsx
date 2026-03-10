@@ -4,8 +4,8 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Shield, Award, Lock } from "lucide-react";
 import { SiLinkedin, SiX, SiFacebook, SiInstagram } from "react-icons/si";
-import prideAdvisoryLogo from "../../attached_assets/generated_images/PrideAdvisory_Logo_1764714261145.png";
 //import prideAdvisoryLogo from "@assets/PrideAdvisory_Logo_1764714261145.png";
+import prideAdvisoryLogo from "@assets/PrideAdvisory_Logo_1764714261145.png";
 
 const footerLinks = {
   services: [

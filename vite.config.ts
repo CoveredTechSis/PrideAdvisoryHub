@@ -20,11 +20,15 @@ export default defineConfig({
       : []),
   ],
   resolve: {
+    
+   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
       "@shared": path.resolve(import.meta.dirname, "shared"),
-      "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+      // Change this to point directly to where the images are
+      "@assets": path.resolve(import.meta.dirname, "attached_assets", "generated_images"),
     },
+  },
   },
   root: path.resolve(import.meta.dirname, "./"),
   build: {
