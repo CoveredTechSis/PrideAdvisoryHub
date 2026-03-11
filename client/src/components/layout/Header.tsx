@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, User, Moon, Sun } from "lucide-react";
 import { Link, useLocation } from "wouter";
-//import prideAdvisoryLogo from "../../../attached_assets/generated_images/PrideAdvisory_Logo_1764714261145.png";
-import prideAdvisoryLogo from "@assets/PrideAdvisory_Logo_1764714261145.png";
+import prideAdvisoryLogo from "../../../attached_assets/generated_images/PrideAdvisory_Logo_1764714261145.png";
+//import prideAdvisoryLogo from "@assets/PrideAdvisory_Logo_1764714261145.png";
 
 const navItems = [
   { label: "Home", href: "/", sectionId: null },
