@@ -11,7 +11,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  AreaChart,
+  ComposedChart,
   Area,
 } from "recharts";
 import { TrendingUp, TrendingDown, Info, AlertTriangle } from "lucide-react";
@@ -208,8 +208,8 @@ export default function PerformanceDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="h-80" data-testid="chart-performance">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={data.chartData}>
+                  <ResponsiveContainer width="100%" height="100%  min-h-[320px]">
+                    <ComposedChart data={data.chartData}>
                       <defs>
                         <linearGradient id="portfolioGradient" x1="0" y1="0" x2="0" y2="1">
                           <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
@@ -243,7 +243,7 @@ export default function PerformanceDashboard() {
                         dot={false}
                         name={data.benchmark}
                       />
-                    </AreaChart>
+                    </ComposedChart>
                   </ResponsiveContainer>
                 </div>
               </CardContent>
