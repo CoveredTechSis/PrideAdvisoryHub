@@ -6,7 +6,7 @@ import { Linkedin } from "lucide-react";
 import { SiFacebook, SiInstagram, SiX } from "react-icons/si";
 import maleHeadshot from "@assets/team_member_headshot_male.png";
 import femaleHeadshot from "@assets/team_member_headshot_female.png";
-import seniorHeadshot from "@assets/attached_assets/senior_team_member_headshot.png";
+import seniorHeadshot from "@assets/senior_team_member_headshot.png";
 import ceoHeadshot from "@assets/Gemini_Generated_Image_i9t3w7i9t3w7i9t3_1767797764431.png";
 import cooHeadshot from "@assets/image_1767826565647.png";
 import analystHeadshot from "@assets/image_1767826890248.png";
