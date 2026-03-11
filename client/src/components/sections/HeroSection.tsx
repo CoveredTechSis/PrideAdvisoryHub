@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Award, CheckCircle, ArrowRight, ChevronDown } from "lucide-react";
 import { Link } from "wouter";
-import heroImage from "../../../attached_assets/generated_images/lagos_financial_skyline_hero.png";
+import heroImage from "../../../../attached_assets/generated_images/lagos_financial_skyline_hero.png";
 
 export default function HeroSection() {
   const scrollToServices = () => {
