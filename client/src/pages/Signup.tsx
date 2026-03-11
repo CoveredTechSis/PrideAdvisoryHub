@@ -37,7 +37,7 @@ export default function Signup() {
       <div className="w-full max-w-4xl grid md:grid-cols-2 gap-8">
         <div className="flex flex-col justify-center">
           <h1 className="text-3xl font-bold mb-4">
-            Start Your Investment Journey
+            Start Your Investment Journey 
           </h1>
           <p className="text-muted-foreground mb-6">
             Join Pride Advisory and get access to expert investment guidance 
@@ -77,7 +77,7 @@ export default function Signup() {
             >
               <a href="/api/login">
                 <Shield className="mr-2 h-4 w-4" />
-                Sign Up with Replit
+                Sign Up
               </a>
             </Button>
 
@@ -98,7 +98,7 @@ export default function Signup() {
 
             <Link href="/login">
               <Button variant="outline" className="w-full" data-testid="button-goto-login">
-                Sign In Instead
+                Sign In 
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>

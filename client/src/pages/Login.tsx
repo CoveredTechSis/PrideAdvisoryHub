@@ -48,7 +48,7 @@ export default function Login() {
             >
               <a href="/api/login">
                 <User className="mr-2 h-4 w-4" />
-                Sign In with Replit
+                Sign In 
               </a>
             </Button>
 
