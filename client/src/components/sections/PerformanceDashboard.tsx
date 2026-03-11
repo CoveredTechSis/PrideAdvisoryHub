@@ -207,8 +207,9 @@ export default function PerformanceDashboard() {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="h-80" data-testid="chart-performance">
-                  <ResponsiveContainer width="100%" height="100%  min-h-[320px]">
+                {/* <div className="h-80" data-testid="chart-performance"> */}
+                  <div className="h-80 w-full min-h-[320px]">
+                  <ResponsiveContainer width="100%" height="100%">
                     <ComposedChart data={data.chartData}>
                       <defs>
                         <linearGradient id="portfolioGradient" x1="0" y1="0" x2="0" y2="1">
