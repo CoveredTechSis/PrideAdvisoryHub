@@ -272,7 +272,7 @@
     inset: 0px;
     /*border-radius: inherit;   match rounded corners */
     border-radius: inherit;
-    z-index: 999;
+    z-index: 10;
     /* sits in front of content */
   }
 
