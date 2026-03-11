@@ -44,7 +44,7 @@ export default function Header({ isDark = false, onToggleTheme }: HeaderProps) {
             <img 
               src={prideAdvisoryLogo} 
               alt="Pride Advisory" 
-              className="h-12
+              className="h-20
 
   
               dark:invert"
