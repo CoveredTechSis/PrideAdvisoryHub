@@ -48,7 +48,7 @@ export default function HeroSection() {
               asChild
               data-testid="button-hero-consultation"
             >
-              <a href="https://wa.me/2349049441258?text=Hello%20Pride%20Advisory,%20I'm%20interested%20in%20your%20investment%20services." target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/2348024760109?text=Hello%20Pride%20Advisory,%20I'm%20interested%20in%20your%20investment%20services." target="_blank" rel="noopener noreferrer">
                 Book Consultation
                 <ArrowRight className="ml-2 h-4 w-4" />
               </a>
